@@ -7,6 +7,7 @@ import com.ms.user.model.User;
 import com.ms.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,6 +28,7 @@ public class UserService {
         return list.stream().map(UserDTO::new).toList();
     }
 
+    @Transactional
     public UserDTO create(UserDTO userDTO) throws ServiceException {
         User entity = new User(userDTO);
         entity.setRegistryUser(userDTO.getRegistryUser());
@@ -46,6 +48,8 @@ public class UserService {
                 .map(UserDTO::new)
                 .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
     }
+
+    @Transactional
     public UserDTO update(String id, UserDTO userDTO) throws ServiceException {
         Optional<User> optionalUser = repository.findById(id);
         if (optionalUser.isPresent()) {
