@@ -7,7 +7,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,7 +35,7 @@ public class UserController {
         }
     }
 
-    @Transactional
+
     @PostMapping
     public ResponseEntity<UserDTO> create(@RequestBody @Valid UserDTO entity) {
         try {
@@ -71,7 +70,6 @@ public class UserController {
         }
     }
 
-    @Transactional
     @PutMapping(value="/{id}")
     public ResponseEntity<UserDTO> update(@PathVariable String id, @RequestBody @Valid UserDTO userDTO) {
         try {
